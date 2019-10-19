@@ -27,10 +27,9 @@ class TestRgbToGrayscale:
         img = utils.tensor_to_gradcheck_var(img)  # to var
         assert gradcheck(kornia.rgb_to_grayscale, (img,), raise_exception=True)
 
-    @pytest.mark.skip(reason="turn off all jit for a while")
     def test_jit(self):
         batch_size, channels, height, width = 2, 3, 64, 64
         img = torch.ones(batch_size, channels, height, width)
-        gray = kornia.color.RgbToGrayscale()
-        gray_traced = torch.jit.trace(kornia.color.RgbToGrayscale(), img)
-        assert_allclose(gray(img), gray_traced(img))
+        to_gray = kornia.color.RgbToGrayscale()
+        to_gray_jit = torch.jit.script(to_gray)
+        assert_allclose(to_gray(img), to_gray_jit(img))

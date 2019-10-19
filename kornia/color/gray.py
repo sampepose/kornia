@@ -27,7 +27,7 @@ class RgbToGrayscale(nn.Module):
     def __init__(self) -> None:
         super(RgbToGrayscale, self).__init__()
 
-    def forward(self, input: torch.Tensor) -> torch.Tensor:  # type: ignore
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
         return rgb_to_grayscale(input)
 
 
@@ -42,7 +42,7 @@ def rgb_to_grayscale(input: torch.Tensor) -> torch.Tensor:
     Returns:
         torch.Tensor: Grayscale version of the image.
     """
-    if not torch.is_tensor(input):
+    if not isinstance(input, torch.Tensor):
         raise TypeError("Input type is not a torch.Tensor. Got {}".format(
             type(input)))
 
