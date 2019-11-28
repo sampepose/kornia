@@ -14,7 +14,7 @@ def harris_response(input: torch.Tensor,
     any normalization or nms.The response map is computed according the following formulation:
 
     .. math::
-        R = max(0, det(M) - k \cdot trace(M)^2)
+        R = det(M) - k \cdot trace(M)^2
 
     where:
 
@@ -184,7 +184,7 @@ def gftt_response(input: torch.Tensor,
 def hessian_response(input: torch.Tensor,
                      grads_mode: str = 'sobel',
                      sigmas: Optional[torch.Tensor] = None) -> torch.Tensor:
-    r"""Computes the absolute of determinant of the Hessian matrix. Function does not do any normalization or nms.
+    r"""Computes the determinant of the Hessian matrix. Function does not do any normalization or nms.
     The response map is computed according the following formulation:
 
     .. math::
@@ -253,7 +253,7 @@ def hessian_response(input: torch.Tensor,
     dxy: torch.Tensor = gradients[:, :, 1]
     dyy: torch.Tensor = gradients[:, :, 2]
 
-    scores: torch.Tensor = torch.abs(dxx * dyy - dxy ** 2)
+    scores: torch.Tensor = dxx * dyy - dxy ** 2
     if sigmas is not None:
         scores = scores * sigmas.pow(4).view(-1, 1, 1, 1)
     return scores
