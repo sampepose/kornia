@@ -83,7 +83,7 @@ def harris_response(input: torch.Tensor,
 
     # compute the structure tensor M elements
     def g(x):
-        return gaussian_blur2d(x, (3, 3), (1., 1.))
+        return gaussian_blur2d(x, (9, 9), (1., 1.))
 
     dx2: torch.Tensor = g(dx ** 2)
     dy2: torch.Tensor = g(dy ** 2)
@@ -91,7 +91,7 @@ def harris_response(input: torch.Tensor,
     det_m: torch.Tensor = dx2 * dy2 - dxy * dxy
     trace_m: torch.Tensor = dx2 + dy2
     # compute the response map
-    scores: torch.Tensor = torch.relu(det_m - k * (trace_m ** 2))
+    scores: torch.Tensor = det_m - k * (trace_m ** 2)
     if sigmas is not None:
         scores = scores * sigmas.pow(4).view(-1, 1, 1, 1)
     return scores
@@ -163,7 +163,7 @@ def gftt_response(input: torch.Tensor,
 
     # compute the structure tensor M elements
     def g(x):
-        return gaussian_blur2d(x, (3, 3), (1., 1.))
+        return gaussian_blur2d(x, (9, 9), (1., 1.))
 
     dx2: torch.Tensor = g(dx ** 2)
     dy2: torch.Tensor = g(dy ** 2)
