@@ -100,7 +100,7 @@ class Sobel(nn.Module):
         if not len(input.shape) == 4:
             raise ValueError("Invalid input shape, we expect BxCxHxW. Got: {}"
                              .format(input.shape))
-        # comput the x/y gradients
+        # compute the x/y gradients
         edges: torch.Tensor = spatial_gradient(input,
                                                normalized=self.normalized)
 
