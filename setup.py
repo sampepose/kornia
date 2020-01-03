@@ -18,7 +18,7 @@ cwd = os.path.dirname(os.path.abspath(__file__))
 #  KORNIA_BUILD_VERSION=0.1.2 \
 #  KORNIA_BUILD_NUMBER=1 python setup.py install
 ################################################################################
-package_name = os.getenv('KORNIA_PACKAGE_NAME', 'kornianodeps')
+package_name = "kornianodeps"
 version = '0.1.2'  # NOTE: modify this variable each time we do a release
 if os.getenv('KORNIA_BUILD_VERSION'):
     assert os.getenv('KORNIA_BUILD_NUMBER') is not None
